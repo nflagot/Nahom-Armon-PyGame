@@ -169,8 +169,8 @@ while True:
         colisao_pe = math.hypot((x_pe - x_bola), (y_pe - y_bola))
 
         colisao_cabeca2 = math.hypot((x_cabeca2 - x_bola), (y_cabeca2 - y_bola))
-        colisao_pe2 = math.hypot((x_pe2 - x_bola), (y_pe2 - y_bola))
-
+        hitbox_size = 100  # Quadruples hitbox area
+        colisao_pe2 = math.hypot((x_pe2 - x_bola) * hitbox_size, (y_pe2 - y_bola) * hitbox_size)
         if (not (y_bola + raio <= y1_trave and x_bola >= x1_trave2)) and (
             not (y_bola + raio <= y1_trave and x_bola <= x2_trave1)
         ):
@@ -564,18 +564,19 @@ while True:
         if contador_gol1 == 3:
             choice = messagebox.askyesno("Game Over", "Player 2 wins! Do you want to play again?")
             if choice:
-                reset_game()
-            else:
                 contador_gol1 = 0
                 contador_gol2 = 0  # Reset the score to 0-0 and continue
+                reset_game()
+            else:
+                reset_game()
 
         elif contador_gol2 == 3:
             choice = messagebox.askyesno("Game Over", "Player 1 wins! Do you want to play again?")
             if choice:
-                reset_game()
-            else:
                 contador_gol1 = 0
                 contador_gol2 = 0  # Reset the score to 0-0 and continue
+            else:
+                reset_game()
 
 
     check_game_over()

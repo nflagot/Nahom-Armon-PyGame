@@ -1,6 +1,9 @@
 x = 1200
+#x position
 y = 600
+#y position
 vel = 20
+#pace of game
 dy2 = 30
 dy = 1
 atrito = 1/50
@@ -14,15 +17,21 @@ raio_cabeca = 28
 larg_b = 25
 alt_b = 40
 velx_bola = 0
+#ball's x velocity
 vely_bola = 0
+#ball's y velocity
 larg_t = 55
 alt_t = 96
 chute = False
 chute2 = False
 cont_chute = 0
+#player 1 shooting
 cont_chute2 = 0
+#player 2 shooting
 chao = 544
 gol = False
 contador_gol1 = 0
+#player 1's score
 contador_gol2 = 0
+#player 2's score
 cont_trave = 0

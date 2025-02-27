@@ -1,7 +1,40 @@
 # coding: utf-8
+from tkinter import messagebox
+import sys
+import os
+
 from graphics import *
 from variaveis import *
 import time, math
+from graphics import *
+import time
+
+# Create the window
+tela = GraphWin("Old Head Soccer", 500, 500)
+
+# Initialize the game time (120 seconds)
+game_time = 120
+
+# Create a Text object to display the timer
+timer_text = Text(Point(250, 20), f"Time Left: {game_time}")
+timer_text.setSize(18)  # Set the font size
+timer_text.setTextColor("red")  # Set the text color
+timer_text.draw(tela)
+
+# Function to update the timer display
+def update_timer(time_left):
+    timer_text.setText(f"Time Left: {time_left}")
+# Set target frame rate (e.g., 30 FPS)
+TARGET_FPS = 30
+frame_time = 1 / TARGET_FPS
+
+# Function to control frame rate
+def frame_delay(last_time):
+    current_time = time.time()
+    delta_time = current_time - last_time
+    if delta_time < frame_time:
+        time.sleep(frame_time - delta_time)
+    return current_time
 
 #### VARIÁVEIS ####
 tela = GraphWin("Head Soccer", x, y, False)
@@ -18,23 +51,30 @@ sair.draw(tela)
 ####################
 ## LOOP DA INTRO ###
 ####################
+last_time = time.time()
+
 while True:
+    current_time = time.time()
+    dt = current_time - last_time  # Calculate delta time
+    last_time = current_time  # Update last_time
+
     enter = tela.checkKey()
     check = tela.checkMouse()
-    if check != None:
+
+    if check is not None:
         check_x = check.getX()
         check_y = check.getY()
         if (470 <= check_y <= 530) and (75 <= check_x <= 275):
-            time.sleep(0.06)
             break
         elif (470 <= check_y <= 530) and (325 <= check_x <= 525):
-            time.sleep(0.2)
             tela.close()
-    else:
-        if enter == "Return":
-            time.sleep(0.06)
             break
-    time.sleep(0.07)
+
+    if enter == "Return":
+        break
+
+    time.sleep(max(0, 0.07 - dt))  # Adjust sleep dynamically based on delta time
+
 
 c_bola = Circle(Point(x / 2, 100), raio)
 c_bola.draw(tela)
@@ -42,6 +82,7 @@ c_bola.draw(tela)
 cabeca = Circle(Point(300, 491), raio_cabeca)
 cabeca.draw(tela)
 pe = Circle(Point(300, 529), raio)
+
 pe.draw(tela)
 
 cabeca2 = Circle(Point(900, 491), raio_cabeca)
@@ -116,6 +157,7 @@ placar2.draw(tela)
 
 #### LOOP DO JOGO ###
 tela.ligar_Buffer()
+
 while True:
     placar1.setText(contador_gol1)
     placar2.setText(contador_gol2)
@@ -507,6 +549,34 @@ while True:
         contador_gol1 += 1
     elif lado == "right":
         contador_gol2 += 1
+
+
+    def reset_game():
+        python = sys.executable
+        os.execl(python, python, *sys.argv)  # Restarts the script from the beginning
+
+
+    def check_game_over():
+        global contador_gol1, contador_gol2  # Ensure we modify the global variables
+
+        if contador_gol1 == 1:
+            choice = messagebox.askyesno("Game Over", "Player 2 wins! Do you want to play again?")
+            if choice:
+                reset_game()
+            else:
+                contador_gol1 = 0
+                contador_gol2 = 0  # Reset the score to 0-0 and continue
+
+        elif contador_gol2 == 1:
+            choice = messagebox.askyesno("Game Over", "Player 1 wins! Do you want to play again?")
+            if choice:
+                reset_game()
+            else:
+                contador_gol1 = 0
+                contador_gol2 = 0  # Reset the score to 0-0 and continue
+
+
+    check_game_over()
 
     gol = False
     pulando = False

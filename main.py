@@ -429,14 +429,15 @@ while True:
         if not (pulando):
             if len(lista) > 0 and ("w" in lista):
                 pulando = True
+                dy = 3  # Increased initial jump strength
         else:
-            if cont <= 24:
-                if cont // 12 == 0:
+            if cont <= 30:  # Increased jump duration
+                if cont // 15 == 0:  # Longer ascent
                     boneco.move(0, -dy)
                     cabeca.move(0, -dy)
                     pe.move(0, -dy)
                     dy += 1
-                if cont // 12 == 1:
+                if cont // 15 == 1:  # Longer descent
                     dy -= 1
                     boneco.move(0, dy)
                     cabeca.move(0, dy)
@@ -449,14 +450,15 @@ while True:
         if not (pulando2):
             if len(lista) > 0 and ("Up" in lista):
                 pulando2 = True
+                dy2 = 3  # Increased initial jump strength
         else:
-            if cont2 <= 24:
-                if cont2 // 12 == 0:
+            if cont2 <= 30:  # Increased jump duration
+                if cont2 // 15 == 0:  # Longer ascent
                     boneco2.move(0, -dy2)
                     cabeca2.move(0, -dy2)
                     pe2.move(0, -dy2)
                     dy2 += 1
-                if cont2 // 12 == 1:
+                if cont2 // 15 == 1:  # Longer descent
                     dy2 -= 1
                     boneco2.move(0, dy2)
                     cabeca2.move(0, dy2)
@@ -559,7 +561,7 @@ while True:
     def check_game_over():
         global contador_gol1, contador_gol2  # Ensure we modify the global variables
 
-        if contador_gol1 == 1:
+        if contador_gol1 == 3:
             choice = messagebox.askyesno("Game Over", "Player 2 wins! Do you want to play again?")
             if choice:
                 reset_game()
@@ -567,7 +569,7 @@ while True:
                 contador_gol1 = 0
                 contador_gol2 = 0  # Reset the score to 0-0 and continue
 
-        elif contador_gol2 == 1:
+        elif contador_gol2 == 3:
             choice = messagebox.askyesno("Game Over", "Player 1 wins! Do you want to play again?")
             if choice:
                 reset_game()

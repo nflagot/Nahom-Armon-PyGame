@@ -2,6 +2,22 @@
 from tkinter import messagebox
 import sys
 import os
+import pygame
+
+import pygame
+
+# Initialize pygame mixer
+pygame.mixer.init()
+
+# Load the crowd sound as a Sound object
+crowd_sound = pygame.mixer.Sound("/Users/nahomflagot/Downloads/crowd.mp3")
+victory_sound = pygame.mixer.Sound("/Users/nahomflagot/Downloads/victory.mp3")
+goal_sound = pygame.mixer.Sound("/Users/nahomflagot/Downloads/goal.mp3")
+# Set volume only for the crowd sound (range 0.0 to 1.0)
+crowd_sound.set_volume(.5)  # Adjust as needed
+
+# Play the crowd sound on a loop (-1 for infinite loop)
+crowd_sound.play(-1)
 
 from graphics import *
 from variaveis import *
@@ -169,13 +185,13 @@ while True:
         colisao_pe = math.hypot((x_pe - x_bola), (y_pe - y_bola))
 
         colisao_cabeca2 = math.hypot((x_cabeca2 - x_bola), (y_cabeca2 - y_bola))
-        hitbox_size = 100  # Quadruples hitbox area
+        hitbox_size = 19  # Quadruples hitbox area
         colisao_pe2 = math.hypot((x_pe2 - x_bola) * hitbox_size, (y_pe2 - y_bola) * hitbox_size)
         if (not (y_bola + raio <= y1_trave and x_bola >= x1_trave2)) and (
             not (y_bola + raio <= y1_trave and x_bola <= x2_trave1)
         ):
             if y_bola + raio < chao:
-                if vely_bola < 12:
+                if vely_bola < 20:
                     vely_bola += 0.4
                 if y_bola + raio + vely_bola > chao:
                     vely_bola = chao - (y_bola + raio)
@@ -577,6 +593,9 @@ while True:
                 contador_gol2 = 0  # Reset the score to 0-0 and continue
             else:
                 reset_game()
+
+
+
 
 
     check_game_over()

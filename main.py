@@ -10,9 +10,9 @@ import pygame
 pygame.mixer.init()
 
 # Load the crowd sound as a Sound object
-crowd_sound = pygame.mixer.Sound("/Users/nahomflagot/Downloads/crowd.mp3")
-victory_sound = pygame.mixer.Sound("/Users/nahomflagot/Downloads/victory.mp3")
-goal_sound = pygame.mixer.Sound("/Users/nahomflagot/Downloads/goal.mp3")
+crowd_sound = pygame.mixer.Sound("/Users/armonmafi/Downloads/crowd.mp3")
+victory_sound = pygame.mixer.Sound("/Users/armonmafi/Downloads/victory.mp3")
+goal_sound = pygame.mixer.Sound("/Users/armonmafi/Downloads/goal.mp3")
 # Set volume only for the crowd sound (range 0.0 to 1.0)
 crowd_sound.set_volume(.5)  # Adjust as needed
 
@@ -564,8 +564,14 @@ while True:
         tela.update()
 
     if lado == "left":
+        crowd_sound.set_volume(0)
+        goal_sound.play(0)
+        crowd_sound.set_volume(0.5)
         contador_gol1 += 1
     elif lado == "right":
+        crowd_sound.set_volume(0)
+        goal_sound.play(0)
+        crowd_sound.set_volume(0.5)
         contador_gol2 += 1
 
 
@@ -577,16 +583,21 @@ while True:
     def check_game_over():
         global contador_gol1, contador_gol2  # Ensure we modify the global variables
 
-        if contador_gol1 == 3:
+        if contador_gol1 == 5:
+            crowd_sound.set_volume(0.1)
+            victory_sound.play(0)
+            crowd_sound.set_volume(0.5)
             choice = messagebox.askyesno("Game Over", "Player 2 wins! Do you want to play again?")
             if choice:
                 contador_gol1 = 0
                 contador_gol2 = 0  # Reset the score to 0-0 and continue
-                reset_game()
             else:
                 reset_game()
 
-        elif contador_gol2 == 3:
+        elif contador_gol2 == 5:
+            crowd_sound.set_volume(0.1)
+            victory_sound.play(0)
+            crowd_sound.set_volume(0.5)
             choice = messagebox.askyesno("Game Over", "Player 1 wins! Do you want to play again?")
             if choice:
                 contador_gol1 = 0

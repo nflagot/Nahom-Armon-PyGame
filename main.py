@@ -10,9 +10,9 @@ import pygame
 pygame.mixer.init()
 
 # Load the crowd sound as a Sound object
-crowd_sound = pygame.mixer.Sound("/Users/armonmafi/Downloads/crowd.mp3")
-victory_sound = pygame.mixer.Sound("/Users/armonmafi/Downloads/victory.mp3")
-goal_sound = pygame.mixer.Sound("/Users/armonmafi/Downloads/goal.mp3")
+crowd_sound = pygame.mixer.Sound("/Users/j/Downloads/crowd.mp3")
+victory_sound = pygame.mixer.Sound("/Users/j/Downloads/victory.mp3")
+goal_sound = pygame.mixer.Sound("/Users/j/Downloads/goal.mp3")
 # Set volume only for the crowd sound (range 0.0 to 1.0)
 crowd_sound.set_volume(.5)  # Adjust as needed
 
